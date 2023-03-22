@@ -1,13 +1,13 @@
 import cv2
 from flask import Response, Blueprint, request, jsonify
-from routes.utils import photoToText
-from routes.utils.findDNASequence import searchSpecies
+from routes.utils.photoToText import extractText
+from routes.utils.findDNASequence import searchSpecies, serialize_sets
 import os
 import json
 
 dnaTask = Blueprint('dnaTask', __name__)
 
-@dnaTask.route('/getCoralSpecie', methods=['POST'])
+@dnaTask.route('/getCoralSpecie', methods=['GET'])
 def getCoralSpecie():
 
     mainDir = os.getcwd()
@@ -18,7 +18,7 @@ def getCoralSpecie():
 
     #extract text from photo in array
     eDNA_array = []
-    eDNA_array = photoToText.extractText()
+    eDNA_array = extractText()
 
     #get out of utils
     os.chdir(mainDir)
@@ -27,7 +27,7 @@ def getCoralSpecie():
     foundSpecies = searchSpecies(eDNA_array)
 
     return Response(
-        json.dumps(foundSpecies),
+        json.dumps(foundSpecies, default=tuple),
         status=200,
         mimetype = 'application/json'
     )
