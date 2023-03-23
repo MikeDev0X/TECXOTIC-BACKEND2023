@@ -4,15 +4,17 @@ from threading import Thread
 # Flask routes
 from routes.CamServer import camServer, cap1, cap2
 #from routes.ButtonsFunctionality import buttons_functionality
+from routes.DNATask import DNATask
 #from core.Server import run as websocket_server
 
-from routes.dnaTask import dnaTask
 
 
 app = Flask(__name__)
 CORS(app)
 app.register_blueprint(camServer)
-app.register_blueprint(dnaTask)
+#app.register_blueprint(buttons_functionality)
+app.register_blueprint(DNATask)
+
 
 
 if __name__ == '__main__':

@@ -5,15 +5,16 @@ from routes.utils.findDNASequence import searchSpecies, serialize_sets
 import os
 import json
 
-dnaTask = Blueprint('dnaTask', __name__)
+DNATask = Blueprint('DNATask', __name__)
 
-@dnaTask.route('/getCoralSpecie', methods=['GET'])
+@DNATask.route('/getCoralSpecie', methods=['GET'])
 def getCoralSpecie():
 
     mainDir = os.getcwd()
     #get into utils
     print(mainDir)
-    ut = mainDir + r"\routes" + r"\utils" #windows
+    #ut = mainDir + r"\routes" + r"\utils" #windows
+    ut = mainDir + r"/routes" + r"/utils" #MacOS
     os.chdir(ut)    
 
     #extract text from photo in array
