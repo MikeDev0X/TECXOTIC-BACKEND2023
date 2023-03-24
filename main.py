@@ -1,6 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
 from threading import Thread
+import os
+import sys
+
+sys.path.insert(1,os.getcwd())
+
 # Flask routes
 from routes.CamServer import camServer, cap1, cap2
 #from routes.ButtonsFunctionality import buttons_functionality
