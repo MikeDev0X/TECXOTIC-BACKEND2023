@@ -10,7 +10,7 @@ sys.path.insert(1,os.getcwd())
 from routes.CamServer import camServer, cap1
 #from routes.ButtonsFunctionality import buttons_functionality
 from routes.DNATask import DNATask
-#from core.Server import run as websocket_server
+from core.Server import run as websocket_server
 
 
 
@@ -28,7 +28,7 @@ if __name__ == '__main__':
         Thread(
                 target=lambda: app.run(host='0.0.0.0', port=8080, debug=False, use_reloader=False, threaded=True)).start()
         # Running the websocket server that manage the manual control of the ROV
-        #websocket_server()
+        websocket_server()
     except KeyboardInterrupt:
         pass
     except Exception as e:

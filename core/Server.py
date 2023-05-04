@@ -38,7 +38,7 @@ async def echo(websocket, path):
             }
             send = str(json.dumps(send))
             await websocket.send(bytearray(send, 'utf-8'))
-    except websocket.exceptions.ConnectionClosed:
+    except websocket.exceptions.ConnectionClosed(rcvd, sent, rcvd_then_sent=None):
         print("Client disconnected...")
     except Exception as e:
         print("ERROR in main.py: " + str(e))
