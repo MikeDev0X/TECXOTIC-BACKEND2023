@@ -8,8 +8,8 @@ sys.path.insert(1,os.getcwd())
 
 # Flask routes
 from routes.CamServer import camServer, cap1
-#from routes.ButtonsFunctionality import buttons_functionality
-from routes.DNATask import DNATask
+# from routes.ButtonsFunctionality import buttons_functionality
+#from routes.DNATask import DNATask
 from core.Server import run as websocket_server
 
 
@@ -18,7 +18,7 @@ app = Flask(__name__)
 CORS(app)
 app.register_blueprint(camServer)
 #app.register_blueprint(buttons_functionality)
-app.register_blueprint(DNATask)
+#app.register_blueprint(DNATask)
 
 
 
