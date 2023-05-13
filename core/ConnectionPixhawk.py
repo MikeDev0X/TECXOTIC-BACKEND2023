@@ -6,7 +6,7 @@ from pymavlink import mavutil
 
 # class pixhawk to handle ROV movement and communication
 class Pixhawk:
-    def __init__(self, direction='COM3', mode='MANUAL'):
+    def __init__(self, direction, mode='MANUAL'):
         try:
             self.px_conn = mavutil.mavlink_connection(direction)
         except Exception as e:

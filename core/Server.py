@@ -1,9 +1,19 @@
 import websockets
 import asyncio
 import json
+import serial
 from core.ConnectionPixhawk import Pixhawk
 px = Pixhawk(direction='/dev/serial/by-id/usb-ArduPilot_Pixhawk1_380020000A51353338353732-if00')
-# px = Pixhawk(direction='COM7')
+
+try:
+    arduino = serial.Serial(port='/dev/ttyTHS1', baudrate=9600)
+except Exception as e:
+    print("ERROR in ButtonsFunctionality.py, serial route not founded: " + str(e))
+
+'''
+def send(message):
+    arduino.write(bytes(message, 'utf-8'))
+'''
 
 def handle_motors_arming(cmd):
     if cmd != px.get_pix_info()['is_armed']:
@@ -22,6 +32,8 @@ async def echo(websocket, path):
     try:
         async for commands in websocket:
             commands = json.loads(commands)
+            print(commands)
+            arduino.write(str(commands['arduino']).encode('utf-8'))
             px.drive_manual(commands['roll'], commands['pitch'], commands['yaw'], commands['throttle'], 0)
             handle_pix_mode(commands['mode'])
             handle_motors_arming(commands["arm_disarm"])
@@ -38,7 +50,7 @@ async def echo(websocket, path):
             }
             send = str(json.dumps(send))
             await websocket.send(bytearray(send, 'utf-8'))
-    except websocket.exceptions.ConnectionClosed:
+    except websocket.exceptions.ConnectionClosed(rcvd, sent, rcvd_then_sent=None):
         print("Client disconnected...")
     except Exception as e:
         print("ERROR in main.py: " + str(e))
