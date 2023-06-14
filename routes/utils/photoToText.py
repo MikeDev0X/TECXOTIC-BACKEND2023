@@ -1,5 +1,5 @@
 from PIL import Image
-import pytesseract
+#import pytesseract
 import os
 
 def extractText():
