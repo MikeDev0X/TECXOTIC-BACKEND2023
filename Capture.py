@@ -6,9 +6,9 @@ class Capture:
         try:
             cap = cv2.VideoCapture(source, cv2.CAP_V4L)
             cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-            cap.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
-            cap.set(cv2.CAP_PROP_FPS, 30)
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+            cap.set(cv2.CAP_PROP_FPS, 240)
             self.cap = cap
             ret, frame = self.cap.read()
             if not ret:
