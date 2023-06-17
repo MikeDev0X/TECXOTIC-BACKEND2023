@@ -11,8 +11,6 @@ def serialize_sets(obj):
 
     return obj
 
-
-
 def searchSpecies(eDNA_array):
 
     index = -1
@@ -33,14 +31,10 @@ def searchSpecies(eDNA_array):
             index = currentKey.find(eDNA_array[x])
             if index != -1:
                 #foundSpeciesArray.append(str(key))
-                print('key', key)
                 foundSpeciesDict[str(key)] = {str(name_cytochrome[key])}
                 foundSpeciesSuper.append(foundSpeciesDict)
                 foundSpeciesDict = {}
 
                 break
 
-    print(foundSpeciesSuper)
     return foundSpeciesSuper
-
-#searchSpecies(eDNA_array)
