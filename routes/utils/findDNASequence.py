@@ -19,7 +19,7 @@ def searchSpecies(eDNA_array):
             
             if index != -1:
 
-                foundSpeciesDict[str(counter+1)] = {"common_name" : str(name_cytochrome[key]), "scientific_name" : str(key)}
+                foundSpeciesDict["fish" + str(counter+1)] = {"scientific_name" : str(name_cytochrome[key]), "common_name" : str(key)}
                 break
 
         counter += 1
