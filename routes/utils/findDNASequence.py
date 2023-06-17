@@ -1,22 +1,11 @@
-import re
 from routes.utils.fish_species import fishSpecies, name_cytochrome
-import json
-
-
-#eDNA_array = ['ggcattcccccgaatgaataacataagcttttgacttctccctccctcccttctccttcttctagcatccgctggggtagaagctggggccggaactggatgaacagtttacccacccctagcgggtaatctagc','cacgcattcgtaataattttctttatagtaataccaattatgattggtgggttcggaaattgattaattc']
-
-def serialize_sets(obj):
-    if isinstance(obj, set):
-        return list(obj)
-
-    return obj
 
 def searchSpecies(eDNA_array):
 
     index = -1
 
-    foundSpeciesSuper = []
     foundSpeciesDict = {}
+    counter = 0
 
     # searches each substring in every element inside species dictionary
     for x in range(len(eDNA_array)):
@@ -25,16 +14,13 @@ def searchSpecies(eDNA_array):
             currentKey = currentKey.replace(r'\n', '')
             currentKey = currentKey.replace('{','')
             currentKey = currentKey.replace('}','')
-            
-            #print(currentKey)
 
             index = currentKey.find(eDNA_array[x])
+            
             if index != -1:
-                #foundSpeciesArray.append(str(key))
-                foundSpeciesDict[str(key)] = {str(name_cytochrome[key])}
-                foundSpeciesSuper.append(foundSpeciesDict)
-                foundSpeciesDict = {}
 
+                foundSpeciesDict[str(counter+1)] = {"common_name" : str(name_cytochrome[key]), "scientific_name" : str(key)}
                 break
 
-    return foundSpeciesSuper
+        counter += 1
+    return foundSpeciesDict
