@@ -13,14 +13,14 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
 from routes.utils.findDNASequence import searchSpecies
-import os
-import json
+
 
 
 sys.path.insert(1,os.getcwd())
 
 from routes.CamServer import camServer, cap1
-#from routes.DNATask import DNATask
+from routes.ButtonsFunctionality import buttons_functionality
+from core.Server import run as websocket_server
 
 UPLOAD_FOLDER = r'.\routes\utils'
 
@@ -31,7 +31,7 @@ app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.gif','.jpeg']
 
 CORS(app)
 app.register_blueprint(camServer)
-#app.register_blueprint(buttons_functionality)
+app.register_blueprint(buttons_functionality)
 
 
 @app.route('/getCoralSpecie', methods=['POST'])
@@ -51,8 +51,8 @@ def getCoralSpecie():
 
         print(eDNA_Array)
         mainDir = os.getcwd()
-        ut = mainDir + r"\routes" + r"\utils" #windows
-        #ut = mainDir + r"/routes" + r"/utils" #MacOS
+        #ut = mainDir + r"\routes" + r"\utils" #windows
+        ut = mainDir + r"/routes" + r"/utils" #MacOS
         os.chdir(ut)
 
         #get out of utils
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         Thread(
                 target=lambda: app.run(host='0.0.0.0', port=8080, debug=False, use_reloader=False, threaded=True)).start()
         # Running the websocket server that manage the manual control of the ROV
-        #websocket_server()
+        websocket_server()
     except KeyboardInterrupt:
         pass
     except Exception as e:
